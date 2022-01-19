@@ -1,0 +1,50 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://kubernetes.docker.internal:6443
+  name: docker-desktop
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://35.184.174.90
+  name: gke_solid-acrobat-308521_us-central1-c_in28min-cluster-1
+- cluster:
+    certificate-authority: /Users/lokendrab.chhetri/.minikube/ca.crt
+    server: https://192.168.99.102:8443
+  name: minikube
+contexts:
+- context:
+    cluster: docker-desktop
+    user: docker-desktop
+  name: docker-desktop
+- context:
+    cluster: gke_solid-acrobat-308521_us-central1-c_in28min-cluster-1
+    user: gke_solid-acrobat-308521_us-central1-c_in28min-cluster-1
+  name: gke_solid-acrobat-308521_us-central1-c_in28min-cluster-1
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: docker-desktop
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+- name: gke_solid-acrobat-308521_us-central1-c_in28min-cluster-1
+  user:
+    auth-provider:
+      config:
+        access-token: ya29.a0AfH6SMBNcARxMbKzjBjlytdUyMreY51HW3CfQAz_o4cC_Q7uNWU-9MfSBi2fODyahH0Ib0RneVqx4sqXD_ecw8dhhLpt__JS4FWuAkYYsk_N-Q_XDWfEAd_oN6q6gVdypWH8OkckAzFgnJoHR_wq2UmURsmPMBk6QN6L
+        cmd-args: config config-helper --format=json
+        cmd-path: /Users/lokendrab.chhetri/google-cloud-sdk/bin/gcloud
+        expiry: "2021-03-25T20:34:11Z"
+        expiry-key: '{.credential.token_expiry}'
+        token-key: '{.credential.access_token}'
+      name: gcp
+- name: minikube
+  user:
+    client-certificate: /Users/lokendrab.chhetri/.minikube/client.crt
+    client-key: /Users/lokendrab.chhetri/.minikube/client.key
