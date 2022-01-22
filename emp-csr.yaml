@@ -15,13 +15,20 @@ spec:
 
 #kubectl get csr emp -o jsonpath='{.status.certificate}'| base64 -d > emp.crt
 
+# Update the version of client kubectl
 
-1. openssl genrsa -out employee.key 2048
-2. openssl req -new -key employee.key -out employee.csr -subj "/CN=employee/O=bitnami"
-3. Create CSR using this -> cat employee.csr | base64 | tr -d "\n"
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.5.2/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+1. openssl genrsa -out emp.key 2048
+2. openssl req -new -key emp.key -out emp.csr
+3. Create CSR using this -> cat emp.csr | base64 | tr -d "\n"
 4. kubectl certificate approve emp
-5. kubectl get csr emp -o jsonpath='{.status.certificate}'| base64 -d > employee.crt
-6. kubectl get csr emp -o jsonpath='{.status.certificate}'| base64 -d > employee.crt
-7. kubectl config set-credentials employee --client-certificate=employee.crt  --client-key=employee.key
-8. kubectl config set-context employee-context --cluster=minikube --namespace=office --user=employee
-9. Create Role
+5. kubectl get csr emp -o jsonpath='{.status.certificate}'| base64 -d > emp.crt
+7. kubectl config set-credentials emp --client-certificate=emp.crt  --client-key=emp.key
+8. kubectl config set-context emp-ctx --cluster=minikube --namespace=dev --user=emp
+9. Create Role and Role binding
+10. --
+  openssl x509 -req -in emp.csr -CA CA_LOCATION/ca.crt -CAkey CA_LOCATION/ca.key -CAcreateserial -out employee.crt -days 500
+    /etc/kubernetes/pki/

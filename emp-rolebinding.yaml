@@ -2,10 +2,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
     name: emp-bind
-    namespace: office
+    namespace: dev
 subjects:
     - kind: User 
-      name: employee 
+      name: emp 
       apiGroup: ""
 roleRef:
     kind: Role
